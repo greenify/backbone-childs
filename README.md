@@ -28,10 +28,10 @@ gets the view with `key`.
 
 removes the view with `key`.
 
-### removeViews
+### removeViews()
 
 destroys all child views.
 
-### remove
+### remove()
 
 destroys this view
