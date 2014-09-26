@@ -1,0 +1,29 @@
+{
+  "name": "backbone-childs",
+  "version": "1.0.0",
+  "description": "Extended backbone view with support for child views",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/greenify/backbone-childs.git"
+  },
+  "keywords": [
+    "backbone",
+    "childs",
+    "children",
+    "views",
+    "mixin",
+    "childview",
+    "composite"
+  ],
+  "author": "greenify",
+  "license": "Apache 2",
+  "dependencies": {
+    "biojs-events": "0.0.*",
+    "jbone": "^1.0.*",
+    "underscore": "^1.7.*"
+  }
+}
