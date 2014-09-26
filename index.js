@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var viewType = require("../view");
+var viewType = require("backbone-viewj");
 var pluginator;
 
 module.exports = pluginator = viewType.extend({

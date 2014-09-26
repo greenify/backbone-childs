@@ -22,8 +22,7 @@
   "author": "greenify",
   "license": "Apache 2",
   "dependencies": {
-    "biojs-events": "0.0.*",
-    "jbone": "^1.0.*",
+    "backbone-viewj": "^1.0.*",
     "underscore": "^1.7.*"
   }
 }
