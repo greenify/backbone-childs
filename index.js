@@ -16,7 +16,7 @@ module.exports = pluginator = viewType.extend({
       return el.ordering;
     });
     var view, node;
-    for (var i = 0, i <  viewsSorted.length; i++) {
+    for (var i = 0; i <  viewsSorted.length; i++) {
       view = viewsSorted[i];
       view.render();
       node = view.el;
