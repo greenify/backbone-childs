@@ -2,15 +2,43 @@ var _ = require('underscore');
 var viewType = require("backbone-viewj");
 var pluginator;
 
+/**
+ * Remove an element and provide a function that inserts it into its original position
+ * @param element {Element} The element to be temporarily removed
+ * @return {Function} A function that inserts the element into its original position
+ **/
+function removeToInsertLater(element) {
+  var parentNode = element.parentNode;
+  var nextSibling = element.nextSibling;
+  parentNode.removeChild(element);
+  return function() {
+    if (nextSibling) {
+      parentNode.insertBefore(element, nextSibling);
+    } else {
+      parentNode.appendChild(element);
+    }
+  };
+}
+
+var removeChilds = function (node) {
+    var last;
+    while (last = node.lastChild) node.removeChild(last);
+};
+
 module.exports = pluginator = viewType.extend({
   renderSubviews: function() {
+    // it is faster to remove the entire element and replace it
+    // -> however this will lead to lost id,class and style props
     var oldEl = this.el;
-    var el = document.createElement("div");
-    this.setElement(el);
-    var frag = document.createDocumentFragment();
-    if (oldEl.parentNode != null) {
-      oldEl.parentNode.replaceChild(this.el, oldEl);
+
+    // it might be that the element is not on the DOM yet
+    var elOnDom = oldEl.parentNode != undefined;
+    if(elOnDom){
+      var insert = removeToInsertLater(oldEl)
     }
+    removeChilds(oldEl);
+
+    var frag = document.createDocumentFragment();
     var views = this._views();
     var viewsSorted = _.sortBy(views, function(el) {
       return el.ordering;
@@ -24,8 +52,12 @@ module.exports = pluginator = viewType.extend({
         frag.appendChild(node);
       }
     }
-    el.appendChild(frag);
-    return el;
+
+    oldEl.appendChild(frag);
+    if(elOnDom){
+      insert();
+    }
+    return oldEl;
   },
   addView: function(key, view) {
     var views = this._views();
